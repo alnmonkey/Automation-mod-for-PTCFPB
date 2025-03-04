@@ -681,7 +681,6 @@ DeleteNoneGP() {
                 Finished := 100
                 break
             }
-            FileAppend("`n" Friend.text, Path2)
             for n in names {
                 nameSimilarity := Similarity.match(Friend.text, names[A_Index])
                 if Friend.text = names[A_Index] {
