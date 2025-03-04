@@ -5,10 +5,10 @@ if not (A_IsAdmin)
     ExitApp
 }
 #SingleInstance Force
-#Include AutoDeleteModeStuff\Libs\ImagePut.ahk
-#Include AutoDeleteModeStuff\Libs\adb.ahk
-#Include AutoDeleteModeStuff\Libs\OCR.ahk
-#Include AutoDeleteModeStuff\Libs\FuzzyMatch.ahk
+#Include AutomationModV1\Libs\ImagePut.ahk
+#Include AutomationModV1\Libs\adb.ahk
+#Include AutomationModV1\Libs\OCR.ahk
+#Include AutomationModV1\Libs\FuzzyMatch.ahk
 Similarity := Fuzzy()
 global Wintitle := "Main"
 global Wintitle2 := "Main"
@@ -16,8 +16,8 @@ global Stopped := 1
 global Downloadlink := IniRead("Settings.ini", "sim_g_Mod", "Link", "Past your link in there")
 global mode := IniRead("Settings.ini", "sim_g_Mod", "mode", "Once")
 global B4Clear := IniRead("Settings.ini", "sim_g_Mod", "B4Clear", "10")
-global Path := "AutoDeleteModeStuff\GPAccList.txt"
-global Path2 := "AutoDeleteModeStuff\CustomGPAccList.txt"
+global Path := "AutomationModV1\GPAccList.txt"
+global Path2 := "AutomationModV1\CustomGPAccList.txt"
 global Link := IniRead("Settings.ini", "sim_g_Mod", "Link", "")
 global webhook := IniRead("Settings.ini", "sim_g_Mod", "Webhook", "")
 global discordid := IniRead("Settings.ini", "UserSettings", "discordUserId", "")
@@ -28,41 +28,41 @@ FindMain()
 ;--------------------MainGUI Initialization--------------------;
 
 MainGUI := Gui()
-TraySetIcon("AutoDeleteModeStuff\Assets\SillyCatExplosion.ico")
+TraySetIcon("AutomationModV1\Assets\SillyCatExplosion.ico")
 MainGUI.BackColor := "0x201A1E"
 MainGUI.SetFont("s13 cc2255c ", "Comic Sans MS")
 MainGUI.Title := "FunnyGUI"
 MainGUI.opt("-SysMenu -Caption")
 
-MainGUI.Add("Picture", "x0 y0 w518.5 h368", "AutoDeleteModeStuff\Assets\Frame1.png")
-MainGUI.Add("Picture", "x0 y0 w518.5 h55", "AutoDeleteModeStuff\Assets\Title1.png")
-Close := MainGUI.Add("Picture", "x468 y7 w44.5 h41.5", "AutoDeleteModeStuff\Assets\Close.png")
-Minimize := MainGUI.Add("Picture", "x420 y7 w44.5 h41.5", "AutoDeleteModeStuff\Assets\Minimize.png")
-Arturo := MainGUI.Add("Picture", "x-30 y25 w352 h376 BackgroundTrans", "AutoDeleteModeStuff\Assets\ArturoUwU.png")
-Stop := MainGUI.Add("Picture", "x-30 y25 w352 h376 BackgroundTrans", "AutoDeleteModeStuff\Assets\Stop.png")
-ClearFriendListMode := MainGUI.Add("Picture", "x289 y62 w219 h40", "AutoDeleteModeStuff\Assets\ClearFriendListMode.png")
-AutomationLink := MainGUI.Add("Picture", "x322 y110 w186 h40", "AutoDeleteModeStuff\Assets\AutomationLink.png")
-CustomList := MainGUI.Add("Picture", "x317 y158 w191 h40", "AutoDeleteModeStuff\Assets\CustomGPAccList.png")
-MyGithub := MainGUI.Add("Picture", "x273 y207 w236.5 h33", "AutoDeleteModeStuff\Assets\MyGithub.png")
-MainGUI.Add("Picture", "x388 y242 w123.5 h22 BackgroundTrans", "AutoDeleteModeStuff\Assets\Autosoon.png")
-Finance := MainGUI.Add("Picture", "x372 y266 BackgroundTrans", "AutoDeleteModeStuff\Assets\Finance.png")
-FrenchDiscord := MainGUI.Add("Picture", "x361 y298 w147 h59", "AutoDeleteModeStuff\Assets\FrenchDiscord.png")
-Running1 := MainGUI.Add("Picture", "x320 y20 w74.5 h31.5 BackgroundTrans", "AutoDeleteModeStuff\Assets\Running1.png")
-Running2 := MainGUI.Add("Picture", "x320 y20 w79.5 h31.5 BackgroundTrans", "AutoDeleteModeStuff\Assets\Running2.png")
-Running3 := MainGUI.Add("Picture", "x320 y20 w84.5 h31.5 BackgroundTrans", "AutoDeleteModeStuff\Assets\Running3.png")
-Running4 := MainGUI.Add("Picture", "x320 y20 w89.5 h31.5 BackgroundTrans", "AutoDeleteModeStuff\Assets\Running4.png")
-AddImageToGui(MainGUI, "AutoDeleteModeStuff\Assets\pikachu.gif", "x188 y245 BackgroundTrans")
+MainGUI.Add("Picture", "x0 y0 w518.5 h368", "AutomationModV1\Assets\Frame1.png")
+MainGUI.Add("Picture", "x0 y0 w518.5 h55", "AutomationModV1\Assets\Title1.png")
+Close := MainGUI.Add("Picture", "x468 y7 w44.5 h41.5", "AutomationModV1\Assets\Close.png")
+Minimize := MainGUI.Add("Picture", "x420 y7 w44.5 h41.5", "AutomationModV1\Assets\Minimize.png")
+Arturo := MainGUI.Add("Picture", "x-30 y25 w352 h376 BackgroundTrans", "AutomationModV1\Assets\ArturoUwU.png")
+Stop := MainGUI.Add("Picture", "x-30 y25 w352 h376 BackgroundTrans", "AutomationModV1\Assets\Stop.png")
+ClearFriendListMode := MainGUI.Add("Picture", "x289 y62 w219 h40", "AutomationModV1\Assets\ClearFriendListMode.png")
+AutomationLink := MainGUI.Add("Picture", "x322 y110 w186 h40", "AutomationModV1\Assets\AutomationLink.png")
+CustomList := MainGUI.Add("Picture", "x317 y158 w191 h40", "AutomationModV1\Assets\CustomGPAccList.png")
+MyGithub := MainGUI.Add("Picture", "x273 y207 w236.5 h33", "AutomationModV1\Assets\MyGithub.png")
+MainGUI.Add("Picture", "x388 y242 w123.5 h22 BackgroundTrans", "AutomationModV1\Assets\Autosoon.png")
+Finance := MainGUI.Add("Picture", "x372 y266 BackgroundTrans", "AutomationModV1\Assets\Finance.png")
+FrenchDiscord := MainGUI.Add("Picture", "x361 y298 w147 h59", "AutomationModV1\Assets\FrenchDiscord.png")
+Running1 := MainGUI.Add("Picture", "x320 y20 w74.5 h31.5 BackgroundTrans", "AutomationModV1\Assets\Running1.png")
+Running2 := MainGUI.Add("Picture", "x320 y20 w79.5 h31.5 BackgroundTrans", "AutomationModV1\Assets\Running2.png")
+Running3 := MainGUI.Add("Picture", "x320 y20 w84.5 h31.5 BackgroundTrans", "AutomationModV1\Assets\Running3.png")
+Running4 := MainGUI.Add("Picture", "x320 y20 w89.5 h31.5 BackgroundTrans", "AutomationModV1\Assets\Running4.png")
+AddImageToGui(MainGUI, "AutomationModV1\Assets\pikachu.gif", "x188 y245 BackgroundTrans")
 
-Close_O := MainGUI.Add("Picture", "x468 y7 w44.5 h41.5", "AutoDeleteModeStuff\Assets\Close_O.png")
-Minimize_O := MainGUI.Add("Picture", "x420 y7 w44.5 h41.5", "AutoDeleteModeStuff\Assets\Minimize_O.png")
-ClearFriendListMode_O := MainGUI.Add("Picture", "x289 y62 w219 h40", "AutoDeleteModeStuff\Assets\ClearFriendListMode_O.png")
-AutomationLink_O := MainGUI.Add("Picture", "x322 y110 w186 h40", "AutoDeleteModeStuff\Assets\AutomationLink_O.png")
-CustomList_O := MainGUI.Add("Picture", "x317 y158 w191 h40", "AutoDeleteModeStuff\Assets\CustomGPAccList_O.png")
-MyGithub_O := MainGUI.Add("Picture", "x273 y207 w236.5 h33", "AutoDeleteModeStuff\Assets\MyGithub_O.png")
-Finance_O := MainGUI.Add("Picture", "x372 y266 BackgroundTrans", "AutoDeleteModeStuff\Assets\Finance_O.png")
-FrenchDiscord_O := MainGUI.Add("Picture", "x361 y298 w147 h59", "AutoDeleteModeStuff\Assets\FrenchDiscord_O.png")
-Arturo_O := MainGUI.Add("Picture", "x-30 y25 w352 h376 BackgroundTrans", "AutoDeleteModeStuff\Assets\Arturo_O.png")
-Stop_O := MainGUI.Add("Picture", "x-30 y25 w352 h376 BackgroundTrans", "AutoDeleteModeStuff\Assets\Stop_O.png")
+Close_O := MainGUI.Add("Picture", "x468 y7 w44.5 h41.5", "AutomationModV1\Assets\Close_O.png")
+Minimize_O := MainGUI.Add("Picture", "x420 y7 w44.5 h41.5", "AutomationModV1\Assets\Minimize_O.png")
+ClearFriendListMode_O := MainGUI.Add("Picture", "x289 y62 w219 h40", "AutomationModV1\Assets\ClearFriendListMode_O.png")
+AutomationLink_O := MainGUI.Add("Picture", "x322 y110 w186 h40", "AutomationModV1\Assets\AutomationLink_O.png")
+CustomList_O := MainGUI.Add("Picture", "x317 y158 w191 h40", "AutomationModV1\Assets\CustomGPAccList_O.png")
+MyGithub_O := MainGUI.Add("Picture", "x273 y207 w236.5 h33", "AutomationModV1\Assets\MyGithub_O.png")
+Finance_O := MainGUI.Add("Picture", "x372 y266 BackgroundTrans", "AutomationModV1\Assets\Finance_O.png")
+FrenchDiscord_O := MainGUI.Add("Picture", "x361 y298 w147 h59", "AutomationModV1\Assets\FrenchDiscord_O.png")
+Arturo_O := MainGUI.Add("Picture", "x-30 y25 w352 h376 BackgroundTrans", "AutomationModV1\Assets\Arturo_O.png")
+Stop_O := MainGUI.Add("Picture", "x-30 y25 w352 h376 BackgroundTrans", "AutomationModV1\Assets\Stop_O.png")
 
 Close_O.Visible := 0
 Minimize_O.Visible := 0
@@ -81,16 +81,16 @@ Running3.Visible := 0
 Running4.Visible := 0
 
 
-Close_C := MainGUI.Add("Picture", "x468 y7 w44.5 h41.5", "AutoDeleteModeStuff\Assets\Close_C.png")
-Minimize_C := MainGUI.Add("Picture", "x420 y7 w44.5 h41.5", "AutoDeleteModeStuff\Assets\Minimize_C.png")
-ClearFriendListMode_C := MainGUI.Add("Picture", "x289 y62 w219 h40", "AutoDeleteModeStuff\Assets\ClearFriendListMode_C.png")
-AutomationLink_C := MainGUI.Add("Picture", "x322 y110 w186 h40", "AutoDeleteModeStuff\Assets\AutomationLinks_C.png")
-CustomList_C := MainGUI.Add("Picture", "x317 y158 w191 h40", "AutoDeleteModeStuff\Assets\CustomGPAccList_C.png")
-MyGithub_C := MainGUI.Add("Picture", "x273 y207 w236.5 h33", "AutoDeleteModeStuff\Assets\MyGithub_C.png")
-Finance_C := MainGUI.Add("Picture", "x372 y266 BackgroundTrans", "AutoDeleteModeStuff\Assets\Finance_C.png")
-FrenchDiscord_C := MainGUI.Add("Picture", "x361 y298 w147 h59", "AutoDeleteModeStuff\Assets\FrenchDiscord_C.png")
-Arturo_C := MainGUI.Add("Picture", "x-30 y25 w352 h376 BackgroundTrans", "AutoDeleteModeStuff\Assets\Arturo_C.png")
-Stop_C := MainGUI.Add("Picture", "x-30 y25 w352 h376 BackgroundTrans", "AutoDeleteModeStuff\Assets\Stop_C.png")
+Close_C := MainGUI.Add("Picture", "x468 y7 w44.5 h41.5", "AutomationModV1\Assets\Close_C.png")
+Minimize_C := MainGUI.Add("Picture", "x420 y7 w44.5 h41.5", "AutomationModV1\Assets\Minimize_C.png")
+ClearFriendListMode_C := MainGUI.Add("Picture", "x289 y62 w219 h40", "AutomationModV1\Assets\ClearFriendListMode_C.png")
+AutomationLink_C := MainGUI.Add("Picture", "x322 y110 w186 h40", "AutomationModV1\Assets\AutomationLinks_C.png")
+CustomList_C := MainGUI.Add("Picture", "x317 y158 w191 h40", "AutomationModV1\Assets\CustomGPAccList_C.png")
+MyGithub_C := MainGUI.Add("Picture", "x273 y207 w236.5 h33", "AutomationModV1\Assets\MyGithub_C.png")
+Finance_C := MainGUI.Add("Picture", "x372 y266 BackgroundTrans", "AutomationModV1\Assets\Finance_C.png")
+FrenchDiscord_C := MainGUI.Add("Picture", "x361 y298 w147 h59", "AutomationModV1\Assets\FrenchDiscord_C.png")
+Arturo_C := MainGUI.Add("Picture", "x-30 y25 w352 h376 BackgroundTrans", "AutomationModV1\Assets\Arturo_C.png")
+Stop_C := MainGUI.Add("Picture", "x-30 y25 w352 h376 BackgroundTrans", "AutomationModV1\Assets\Stop_C.png")
 
 Close_C.Visible := 0
 Minimize_C.Visible := 0
@@ -114,23 +114,23 @@ ClearFLModeGUI.Title := "ClearFLModeGUI"
 ClearFLModeGUI.Opt("+Owner" MainGUI.Hwnd)
 ClearFLModeGUI.opt("-SysMenu -Caption")
 
-ClearFLModeGUI.Add("Picture", "x0 y0 w248 h211", "AutoDeleteModeStuff\Assets\Frame2.png")
-ClearFLModeGUI.Add("Picture", "x0 y0 w248 h55.5", "AutoDeleteModeStuff\Assets\Title2.png")
-Close2 := ClearFLModeGUI.Add("Picture", "x197 y7 w44.5 h41.5", "AutoDeleteModeStuff\Assets\Close2.png")
-Validate := ClearFLModeGUI.Add("Picture", "x149 y7 w44.5 h41.5", "AutoDeleteModeStuff\Assets\Validate.png")
-ClearFLOnce := ClearFLModeGUI.Add("Picture", "x7 y62 w143 h40.5", "AutoDeleteModeStuff\Assets\ClearFLOnce.png")
-AutoClearFL := ClearFLModeGUI.Add("Picture", "x7 y111 w142.5 h40.5", "AutoDeleteModeStuff\Assets\AutoClearFL.png")
-FLUpdate := ClearFLModeGUI.Add("Picture", "x7 y160 w237.5 h38", "AutoDeleteModeStuff\Assets\FLUpdate.png")
-GreenCircle := ClearFLModeGUI.Add("Picture", "x165 y62 w38.5 h39", "AutoDeleteModeStuff\Assets\GreenCircle.png")
+ClearFLModeGUI.Add("Picture", "x0 y0 w248 h211", "AutomationModV1\Assets\Frame2.png")
+ClearFLModeGUI.Add("Picture", "x0 y0 w248 h55.5", "AutomationModV1\Assets\Title2.png")
+Close2 := ClearFLModeGUI.Add("Picture", "x197 y7 w44.5 h41.5", "AutomationModV1\Assets\Close2.png")
+Validate := ClearFLModeGUI.Add("Picture", "x149 y7 w44.5 h41.5", "AutomationModV1\Assets\Validate.png")
+ClearFLOnce := ClearFLModeGUI.Add("Picture", "x7 y62 w143 h40.5", "AutomationModV1\Assets\ClearFLOnce.png")
+AutoClearFL := ClearFLModeGUI.Add("Picture", "x7 y111 w142.5 h40.5", "AutomationModV1\Assets\AutoClearFL.png")
+FLUpdate := ClearFLModeGUI.Add("Picture", "x7 y160 w237.5 h38", "AutomationModV1\Assets\FLUpdate.png")
+GreenCircle := ClearFLModeGUI.Add("Picture", "x165 y62 w38.5 h39", "AutomationModV1\Assets\GreenCircle.png")
 if mode = "Once" 
     GreenCircle.Move(165 ,62 ,38.5 ,39)
 if mode = "Auto" 
     GreenCircle.Move(165, 110, 38.5, 39)
-Close_O2 := ClearFLModeGUI.Add("Picture", "x197 y7 w44.5 h41.5", "AutoDeleteModeStuff\Assets\Close_O2.png")
-Validate_O := ClearFLModeGUI.Add("Picture", "x149 y7 w44.5 h41.5", "AutoDeleteModeStuff\Assets\Validate_O.png")
-ClearFLOnce_O := ClearFLModeGUI.Add("Picture", "x7 y62 w143 h40.5", "AutoDeleteModeStuff\Assets\ClearFLOnce_O.png")
-AutoClearFL_O := ClearFLModeGUI.Add("Picture", "x7 y111 w142.5 h40.5", "AutoDeleteModeStuff\Assets\AutoClearFL_O.png")
-FLUpdate_O := ClearFLModeGUI.Add("Picture", "x7 y160 w237.5 h38", "AutoDeleteModeStuff\Assets\FLUpdate_O.png")
+Close_O2 := ClearFLModeGUI.Add("Picture", "x197 y7 w44.5 h41.5", "AutomationModV1\Assets\Close_O2.png")
+Validate_O := ClearFLModeGUI.Add("Picture", "x149 y7 w44.5 h41.5", "AutomationModV1\Assets\Validate_O.png")
+ClearFLOnce_O := ClearFLModeGUI.Add("Picture", "x7 y62 w143 h40.5", "AutomationModV1\Assets\ClearFLOnce_O.png")
+AutoClearFL_O := ClearFLModeGUI.Add("Picture", "x7 y111 w142.5 h40.5", "AutomationModV1\Assets\AutoClearFL_O.png")
+FLUpdate_O := ClearFLModeGUI.Add("Picture", "x7 y160 w237.5 h38", "AutomationModV1\Assets\FLUpdate_O.png")
 
 Close_O2.Visible := 0
 Validate_O.Visible := 0
@@ -138,11 +138,11 @@ ClearFLOnce_O.Visible := 0
 AutoClearFL_O.Visible := 0
 FLUpdate_O.Visible := 0
 
-Close_C2 := ClearFLModeGUI.Add("Picture", "x197 y7 w44.5 h41.5", "AutoDeleteModeStuff\Assets\Close_C2.png")
-Validate_C := ClearFLModeGUI.Add("Picture", "x149 y7 w44.5 h41.5", "AutoDeleteModeStuff\Assets\Validate_C.png")
-ClearFLOnce_C := ClearFLModeGUI.Add("Picture", "x7 y62 w143 h40.5", "AutoDeleteModeStuff\Assets\ClearFLOnce_C.png")
-AutoClearFL_C := ClearFLModeGUI.Add("Picture", "x7 y111 w142.5 h40.5", "AutoDeleteModeStuff\Assets\AutoClearFL_C.png")
-FLUpdate_C := ClearFLModeGUI.Add("Picture", "x7 y160 w237.5 h38", "AutoDeleteModeStuff\Assets\FLUpdate_C.png")
+Close_C2 := ClearFLModeGUI.Add("Picture", "x197 y7 w44.5 h41.5", "AutomationModV1\Assets\Close_C2.png")
+Validate_C := ClearFLModeGUI.Add("Picture", "x149 y7 w44.5 h41.5", "AutomationModV1\Assets\Validate_C.png")
+ClearFLOnce_C := ClearFLModeGUI.Add("Picture", "x7 y62 w143 h40.5", "AutomationModV1\Assets\ClearFLOnce_C.png")
+AutoClearFL_C := ClearFLModeGUI.Add("Picture", "x7 y111 w142.5 h40.5", "AutomationModV1\Assets\AutoClearFL_C.png")
+FLUpdate_C := ClearFLModeGUI.Add("Picture", "x7 y160 w237.5 h38", "AutomationModV1\Assets\FLUpdate_C.png")
 
 Close_C2.Visible := 0
 Validate_C.Visible := 0
@@ -159,18 +159,18 @@ LinkGUI.Title := "LinkGUI"
 LinkGUI.Opt("+Owner" MainGUI.Hwnd)
 LinkGUI.opt("-SysMenu -Caption")
 
-LinkGUI.Add("Picture", "x0 y0 w894 h77", "AutoDeleteModeStuff\Assets\Frame3.png")
-CheckedMark := LinkGUI.Add("Picture", "x857 y44 w28.5 h24.5 BackgroundTrans", "AutoDeleteModeStuff\Assets\CheckedMark.png")
+LinkGUI.Add("Picture", "x0 y0 w894 h77", "AutomationModV1\Assets\Frame3.png")
+CheckedMark := LinkGUI.Add("Picture", "x857 y44 w28.5 h24.5 BackgroundTrans", "AutomationModV1\Assets\CheckedMark.png")
 LinkField := LinkGUI.Add("Edit", "x107 y4 w783 h33")
 LinkField2 := LinkGUI.Add("Edit", "x107 y40 w742 h33")
 LinkField.Value := Downloadlink
 LinkField2.Value := Webhook
 
-CheckedMark_O := LinkGUI.Add("Picture", "x857 y44 w28.5 h24.5 BackgroundTrans", "AutoDeleteModeStuff\Assets\CheckedMark_O.png")
+CheckedMark_O := LinkGUI.Add("Picture", "x857 y44 w28.5 h24.5 BackgroundTrans", "AutomationModV1\Assets\CheckedMark_O.png")
 
 CheckedMark_O.Visible := 0
 
-CheckedMark_C := LinkGUI.Add("Picture", "x857 y44 w28.5 h24.5 BackgroundTrans", "AutoDeleteModeStuff\Assets\CheckedMark_C.png")
+CheckedMark_C := LinkGUI.Add("Picture", "x857 y44 w28.5 h24.5 BackgroundTrans", "AutomationModV1\Assets\CheckedMark_C.png")
 
 CheckedMark_C.Visible := 0
 
@@ -183,16 +183,16 @@ FLUpdateGUI.Title := "FLUpdateGUI"
 FLUpdateGUI.Opt("+Owner" ClearFLModeGUI.Hwnd)
 FLUpdateGUI.opt("-SysMenu -Caption")
 
-FLUpdateGUI.Add("Picture", "x0 y0 w86 h40", "AutoDeleteModeStuff\Assets\Frame4.png")
-CheckedMark2 := FLUpdateGUI.Add("Picture", "x49 y8 w28.5 h24.5 BackgroundTrans", "AutoDeleteModeStuff\Assets\CheckedMark2.png")
+FLUpdateGUI.Add("Picture", "x0 y0 w86 h40", "AutomationModV1\Assets\Frame4.png")
+CheckedMark2 := FLUpdateGUI.Add("Picture", "x49 y8 w28.5 h24.5 BackgroundTrans", "AutomationModV1\Assets\CheckedMark2.png")
 FLUpdatesSet := FLUpdateGUI.Add("Edit", "x4 y4 w38 h33 Limit2 Number")
 FLUpdatesSet.Value := B4Clear
 
-CheckedMark_O2 := FLUpdateGUI.Add("Picture", "x49 y8 w28.5 h24.5 BackgroundTrans", "AutoDeleteModeStuff\Assets\CheckedMark_O2.png")
+CheckedMark_O2 := FLUpdateGUI.Add("Picture", "x49 y8 w28.5 h24.5 BackgroundTrans", "AutomationModV1\Assets\CheckedMark_O2.png")
 
 CheckedMark_O2.Visible := 0
 
-CheckedMark_C2 := FLUpdateGUI.Add("Picture", "x49 y8 w28.5 h24.5 BackgroundTrans", "AutoDeleteModeStuff\Assets\CheckedMark_C2.png")
+CheckedMark_C2 := FLUpdateGUI.Add("Picture", "x49 y8 w28.5 h24.5 BackgroundTrans", "AutomationModV1\Assets\CheckedMark_C2.png")
 
 CheckedMark_C2.Visible := 0
 
@@ -205,22 +205,22 @@ CustomListGUI.Title := "CustomListGUI"
 CustomListGUI.Opt("+Owner" MainGUI.Hwnd)
 CustomListGUI.opt("-SysMenu -Caption")
 
-CustomListGUI.Add("Picture", "x0 y0 w536.5 h354", "AutoDeleteModeStuff\Assets\Frame5.png")
-CustomListGUI.Add("Picture", "x0 y0 w536.5 h56.5", "AutoDeleteModeStuff\Assets\Title3.png")
-Close3 := CustomListGUI.Add("Picture", "x485 y7 w44.5 h41.5", "AutoDeleteModeStuff\Assets\Close3.png")
-Validate2 := CustomListGUI.Add("Picture", "x437 y7 w44.5 h41.5", "AutoDeleteModeStuff\Assets\Validate2.png")
+CustomListGUI.Add("Picture", "x0 y0 w536.5 h354", "AutomationModV1\Assets\Frame5.png")
+CustomListGUI.Add("Picture", "x0 y0 w536.5 h56.5", "AutomationModV1\Assets\Title3.png")
+Close3 := CustomListGUI.Add("Picture", "x485 y7 w44.5 h41.5", "AutomationModV1\Assets\Close3.png")
+Validate2 := CustomListGUI.Add("Picture", "x437 y7 w44.5 h41.5", "AutomationModV1\Assets\Validate2.png")
 CustomAccList := CustomListGUI.Add("Edit", "x4 y57 w528 h294")
 
 CustomAccList.Value := FileRead(Path2)
 
-Close_O3 := CustomListGUI.Add("Picture", "x485 y7 w44.5 h41.5", "AutoDeleteModeStuff\Assets\Close_O3.png")
-Validate_O2 := CustomListGUI.Add("Picture", "x437 y7 w44.5 h41.5", "AutoDeleteModeStuff\Assets\Validate_O2.png")
+Close_O3 := CustomListGUI.Add("Picture", "x485 y7 w44.5 h41.5", "AutomationModV1\Assets\Close_O3.png")
+Validate_O2 := CustomListGUI.Add("Picture", "x437 y7 w44.5 h41.5", "AutomationModV1\Assets\Validate_O2.png")
 
 Close_O3.Visible := 0
 Validate_O2.Visible := 0
 
-Close_C3 := CustomListGUI.Add("Picture", "x485 y7 w44.5 h41.5", "AutoDeleteModeStuff\Assets\Close_C3.png")
-Validate_C2 := CustomListGUI.Add("Picture", "x437 y7 w44.5 h41.5", "AutoDeleteModeStuff\Assets\Validate_C2.png")
+Close_C3 := CustomListGUI.Add("Picture", "x485 y7 w44.5 h41.5", "AutomationModV1\Assets\Close_C3.png")
+Validate_C2 := CustomListGUI.Add("Picture", "x437 y7 w44.5 h41.5", "AutomationModV1\Assets\Validate_C2.png")
 
 Close_C3.Visible := 0
 Validate_C2.Visible := 0
