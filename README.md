@@ -4,6 +4,7 @@
 https://www.autohotkey.com/
 
 ## Download these two files
+From : https://github.com/gmisSe/Automation-mod-for-PTCFPB/releases/tag/V1
 ![twofile](https://github.com/user-attachments/assets/5c860ecb-d1a2-45f3-afa1-bba3f2fc2c7e)
 
 ## Drop them in Arturo's macro folder
