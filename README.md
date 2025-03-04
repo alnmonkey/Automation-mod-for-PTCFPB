@@ -27,5 +27,11 @@ If you lack of a bot with this functionality, i recommand using my friend's bot,
 # Incoming Functionalities : 
 - Fixed GUI for 100% scaling 
 - Auto test GP 
-- Auto pick GP with certain cards and free wonder pick 
+- Auto pick GP with certain cards and free wonder pick
+- Another theme for the GUI (some people told me my GUI was ugly 😭)
+
+# If you find any bugs, have feebacks, a functionality you want me to add or need some help
+My dms are opened (i speak english and french)
+My discord : sim_g 
+Also don't hesitate to invite me to your reroll servers, i'd really like to see how things works in other groups.
 
