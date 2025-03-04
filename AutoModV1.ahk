@@ -350,7 +350,7 @@ MinimizeGUI(GuiCtrlObj, Info) {
     Minimize_C.Visible := 1
     sleep 200
     WinMinimize("A")
-    Minimize_O.Visible := 0
+    Minimize_C.Visible := 0
 }
 
 ModWin(GuiCtrlObj, Info) {
