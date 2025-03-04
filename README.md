@@ -17,3 +17,15 @@ Setup your discord bot so it updates an online list with all the vip ids.
 Ex : The list from my discord : https://donphan.duckdns.org/vip_ids.txt. 
 
 If you lack of a bot with this functionality, i recommand using my friend's bot, it already has this function included : https://github.com/TheThobi/PTCGPRerollManager
+
+# Updates 
+
+## 04/03/2025 
+- Fixed some bugs that occured when you're running the macro on 100% scaling, should run smoothly now. 
+- Optimized some detection functions that could fail and slow down the bot.
+
+# Incoming Functionalities : 
+- Fixed GUI for 100% scaling 
+- Auto test GP 
+- Auto pick GP with certain cards and free wonder pick 
+
