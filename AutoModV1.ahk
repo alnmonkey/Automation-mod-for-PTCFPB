@@ -667,7 +667,7 @@ DeleteNoneGP() {
         Friends := FriendFound.Length
         Loop Friends {
             i := Friends - A_Index + 1
-            if (FriendFound[i].x) >= 22
+            if (FriendFound[i].x) >= 26
                 FriendFound.RemoveAt(i)
             else if (FriendFound[i].y) < 23
                 FriendFound.RemoveAt(i)
@@ -677,10 +677,11 @@ DeleteNoneGP() {
             GP := 0
             S := 0
             Friend := FriendFound[A_Index]
-            if Friend.text = "No" { 
+            if Friend.text = "No" or (Friend.text = "n'avez") { 
                 Finished := 100
                 break
             }
+            FileAppend("`n" Friend.text, Path2)
             for n in names {
                 nameSimilarity := Similarity.match(Friend.text, names[A_Index])
                 if Friend.text = names[A_Index] {
@@ -775,14 +776,19 @@ GoToFL(it) {
             Spam_detection("", "", count13, 50000, 80000, 5, "0xE8F0F7", 48, 244, 119, 547, 5, 50)
         }
         else if count2 < 50 {
-            while count4 > 1000 or count11 > 300{
-                adbClick(274, 946)
+            failsafe := 0
+            adbClick(274, 946)
+            while count4 > 1000 or count11 > 300 and (failsafe < 100) {
+                failsafe := failsafe + 1
+                if !Mod(A_Index, 5)
+                    adbClick(274, 946)
                 sleep 100
                 PixelCountWindowRegion(Wintitle, [0xD4DAEE], &count4, 106, 103, 50, 50, 10)
                 PixelCountWindowRegion(Wintitle, [0xD4DAEE], &count11, 470, 168, 50, 50, 10)
+                failsafe := failsafe + 1
             }
             Spam_detection(180, 871, count5, 0, 80, 5, "0xE0EBF5", 40, 853, 13, 22, 5, 50)
-    
+
             PixelCountWindowRegion(Wintitle, [0xE8F0F7], &count13, 48, 244, 119, 547, 5) ; < 30000 si FL loaded
             Spam_detection("", "", count13, 50000, 80000, 5, "0xE8F0F7", 48, 244, 119, 547, 5, 50)
         }
@@ -799,10 +805,10 @@ GoToFR() {
     PixelCountWindowRegion(Wintitle, [0xDEEAF4], &count6, 496, 861, 13, 12, 0)
     PixelCountWindowRegion(Wintitle, [0xE2EDF6], &count2, 245, 244, 50, 50, 10)
     if count2 = 0 {
-        Spam_detection(39,896,count2,0,0,5,"0xE2EDF6",245,244,50,50,10, 100)
+        Spam_detection(39, 896, count2, 0, 0, 10, "0xE2EDF6", 245, 244, 50, 50, 10, 100)
     }
     if count6 < 80 {
-        Spam_detection(369,886,count6,0,80,5,"0xDEEAF4",496,861,13,12,5, 100)
+        Spam_detection(369, 886, count6, 0, 80, 10, "0xDEEAF4", 496, 861, 13, 12, 5, 100)
     }
 }
 
@@ -810,12 +816,12 @@ Delete(it) {
     loop it {
         PixelCountWindowRegion(Wintitle, [0x0FD7E1], &count3, 164, 742, 31, 27, 10)
         if count3 > 10 {
-            PixelCountWindowRegion(Wintitle, [0xF03E44], &count7, 373, 671, 42, 24, 10)
-            Spam_detection(278, 757, count7, 0, 10, 5, "0xF03E44", 373, 671, 42, 24, 10)
+            PixelCountWindowRegion(Wintitle, [0xF03E44], &count7, 373, 671, 42, 24, 15)
+            Spam_detection(278, 757, count7, 0, 10, 5, "0xF03E44", 373, 671, 42, 24, 15, 30)
             sleep 200
     
             PixelCountWindowRegion(Wintitle, [0xF03E44], &count7, 373, 671, 42, 24, 10)
-            Spam_detection(296, 680, count7, 10, 5000, 5, "0xF03E44", 373, 671, 42, 24, 10)
+            Spam_detection(296, 680, count7, 10, 5000, 5, "0xF03E44", 373, 671, 42, 24, 15, 30)
         }
     }
 }
@@ -908,5 +914,5 @@ F10::
 
 ^p::
 {
-    WinMove(0, 0, 10, 10, Wintitle)
+    WinMove(0, 0, 277, 537, Wintitle)
 }
