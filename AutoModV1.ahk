@@ -584,9 +584,13 @@ GetlistofGP() {
         line := Trim(A_LoopField)
         line := StrReplace(line," ","")
         Split := StrSplit(line, "|")
-        if Split.Length >= 2 {  
+        if Split.Length >= 1 {  
             codes.Push(Split[1])
+        }
+        if Split.Length >= 2 { 
             names.Push(Split[2])
+        }
+        if Split.Length >= 3 { 
             stars.Push(Split[3])
         }
     }
