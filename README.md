@@ -20,6 +20,14 @@ Ex : The list from my discord : https://donphan.duckdns.org/vip_ids.txt.
 If you lack of a bot with this functionality, i recommand using my friend's bot, it already has this function included : https://github.com/TheThobi/PTCGPRerollManager
 
 # Updates 
+## 06/03/2025
+- 100% scaling  ✅ (now should correctly detect the ok button)
+- running without arturo's macro ✅  (now work without having arturo's macro oppened)
+- corean language breaking detection ✅  (verified and it works fine so idk)
+- some id being added to the custom list ✅  (they don't anymore)
+- error with webhook and downloading the list with a bad internet ✅  (now it will try to send the webhook message and download the list over and over again until it's done)
+- restarting macro after clear once ✅ (you gotta unpause manually now if cleared once)
+- macro not closing after clicking on the exit button ✅
 
 ## 04/03/2025 
 - Fixed some bugs that occured when you're running the macro on 100% scaling, should run smoothly now. 
