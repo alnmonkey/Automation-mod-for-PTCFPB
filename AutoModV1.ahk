@@ -11,7 +11,7 @@ if not (A_IsAdmin)
 #Include AutomationModV1\Libs\FuzzyMatch.ahk
 Similarity := Fuzzy()
 global Wintitle := "Main"
-global Wintitle2 := "Main"
+global Wintitle2 := 0
 global Stopped := 1
 global Downloadlink := IniRead("Settings.ini", "sim_g_Mod", "Link", "Past your link in there")
 global mode := IniRead("Settings.ini", "sim_g_Mod", "mode", "Once")
@@ -33,6 +33,7 @@ MainGUI.BackColor := "0x201A1E"
 MainGUI.SetFont("s13 cc2255c ", "Comic Sans MS")
 MainGUI.Title := "FunnyGUI"
 MainGUI.opt("-SysMenu -Caption")
+MainGUI.OnEvent("Close", (*) => ExitApp())  
 
 MainGUI.Add("Picture", "x0 y0 w518.5 h368", "AutomationModV1\Assets\Frame1.png")
 MainGUI.Add("Picture", "x0 y0 w518.5 h55", "AutomationModV1\Assets\Title1.png")
@@ -540,7 +541,7 @@ Main(*) {
         DeleteNoneGP()
         GoToFR()
         ClearAll(2)
-        end(winX, winY, WinW, WinH)
+        end(winX, winY, WinW, WinH, 0)
     }
     Running1.Visible := 0
     Running2.Visible := 0
@@ -574,11 +575,20 @@ FindMain() {
 } 
 
 GetlistofGP() {
+    resend := 1
     global names := []
     global codes := []
     global stars := []
     if Link
-        Download(Link, Path)
+        While resend = 1 {
+            try {
+                resend := 0
+                Download(Link, Path)
+            }
+            catch as e {
+                Resend := 1
+            }
+        }
     FileContents := FileRead(Path) "`n" FileRead(Path2)
     Loop parse, FileContents, "`n", "`r" {  
         line := Trim(A_LoopField)
@@ -637,20 +647,22 @@ PixelCountWindowRegion(Wintitle,pixels,&count,x1,y1,w,h,variance:=0) {
 ;-------------------------Even More Functions-------------------------;
 
 Start(&winX, &winY, &WinW, &WinH) {
-    loop 50 {
-        ControlClick("Button2", Wintitle2)
-        sleep 10
-    }
-    ControlSend("{F6}", "Button2", Wintitle2)
+    if Wintitle2
+        loop 50 {
+            ControlClick("Button2", Wintitle2)
+            sleep 10
+        }
     WinGetPos(&winX, &winY, &WinW, &WinH, Wintitle)
     WinMove(0,0,550,1010,Wintitle)
 }
 
-end(winX, winY, WinW, WinH) {
+end(winX, winY, WinW, WinH,unpause:=1) {
     WinMove(winX, winY, WinW, WinH, Wintitle)
-    loop 50 {
-        ControlClick("Button3", Wintitle2)
-        sleep 10
+    if (unpause = 1 and Wintitle2) {
+        loop 50 {
+            ControlClick("Button3", Wintitle2)
+            sleep 10
+        }
     }
 }
 
@@ -722,7 +734,6 @@ DeleteNoneGP() {
                 GPAccOnScreen := GPAccOnScreen + 1
                 if S { 
                     names.Push(Friend.text)
-                    FileAppend("`n" code " | " Friend.text " | NA", Path2)
                     break
                 } 
                 if GPAccOnScreen >= 3 {
@@ -819,12 +830,12 @@ Delete(it) {
     loop it {
         PixelCountWindowRegion(Wintitle, [0x0FD7E1], &count3, 164, 742, 31, 27, 10)
         if count3 > 10 {
-            PixelCountWindowRegion(Wintitle, [0xF03E44], &count7, 373, 671, 42, 24, 15)
-            Spam_detection(278, 757, count7, 0, 10, 5, "0xF03E44", 373, 671, 42, 24, 15, 30)
+            PixelCountWindowRegion(Wintitle, [0xF03E44], &count7, 370, 665, 70, 50, 15)
+            Spam_detection(278, 757, count7, 0, 5, 5, "0xF03E44", 370, 665, 70, 50, 50, 30)
             sleep 200
     
-            PixelCountWindowRegion(Wintitle, [0xF03E44], &count7, 373, 671, 42, 24, 10)
-            Spam_detection(296, 680, count7, 10, 5000, 5, "0xF03E44", 373, 671, 42, 24, 15, 30)
+            PixelCountWindowRegion(Wintitle, [0xF03E44], &count7, 370, 665, 70, 50, 15)
+            Spam_detection(296, 680, count7, 5, 5000, 5, "0xF03E44",  370, 665, 70, 50, 50, 30)
         }
     }
 }
@@ -888,13 +899,22 @@ Spam_detection(x,y,count,inf,sup,cr,color,xd,yd,w,h,v,fs:=10000000000000000) {
 
 
 SendToDiscord(message) {
+    resend := 1
     if webhook {
         if discordid 
             message := "<@" discordid ">" " " message
         http := ComObject("WinHttp.WinHttpRequest.5.1")
         http.Open("POST", webhook)
         http.SetRequestHeader("Content-Type", "application/json")
-        http.Send('{"content": "' . message . '"}')
+        While resend = 1 {
+            try {
+                resend := 0
+                http.Send('{"content": "' . message . '"}')
+            }
+            catch as e {
+                Resend := 1
+            }
+        }
     }
 }
 
@@ -917,5 +937,6 @@ F10::
 
 ^p::
 {
+    FindMain()
     WinMove(0, 0, 277, 537, Wintitle)
 }
