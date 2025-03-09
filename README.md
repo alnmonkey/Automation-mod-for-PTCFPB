@@ -19,7 +19,11 @@ Ex : The list from my discord : https://donphan.duckdns.org/vip_ids.txt.
 
 If you lack of a bot with this functionality, i recommand using my friend's bot, it already has this function included : https://github.com/TheThobi/PTCGPRerollManager
 
-# Updates 
+# Updates
+## 09/03/2025
+- Fixed macro not pausing Arturo's macro for some reason
+- Fixed the 5 min update cooldown on gist list. Basically it creates a fresh raw link of the gist git to get the updated list.
+ 
 ## 06/03/2025
 - 100% scaling  ✅ (now should correctly detect the ok button)
 - running without arturo's macro ✅  (now work without having arturo's macro oppened)
