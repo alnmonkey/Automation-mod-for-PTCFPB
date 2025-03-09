@@ -18,6 +18,7 @@ global mode := IniRead("Settings.ini", "sim_g_Mod", "mode", "Once")
 global B4Clear := IniRead("Settings.ini", "sim_g_Mod", "B4Clear", "10")
 global Path := "AutomationModV1\GPAccList.txt"
 global Path2 := "AutomationModV1\CustomGPAccList.txt"
+global Path3 := "AutomationModV1\content.html"
 global Link := IniRead("Settings.ini", "sim_g_Mod", "Link", "")
 global webhook := IniRead("Settings.ini", "sim_g_Mod", "Webhook", "")
 global discordid := IniRead("Settings.ini", "UserSettings", "discordUserId", "")
@@ -555,8 +556,10 @@ Main(*) {
 ;-------------------------Some Functions-------------------------;
 
 FindMain() {
+    TextMacro := []
     TextMain := WinGetList("Main")
-    TextMacro := WinGetList("ahk_exe AutoHotkeyU64.exe")
+    TextMacro.Push(WinGetList("ahk_exe AutoHotkeyU64.exe")*)
+    TextMacro.push(WinGetList("ahk_exe AutoHotkey.exe")*)
     TextMumu := WinGetList("ahk_exe MuMuPlayer.exe")
     for id in TextMain {
         for id2 in TextMumu {
@@ -574,6 +577,27 @@ FindMain() {
     }
 } 
 
+DownloadList() {
+    global link
+    gistlist := 0
+    if RegExMatch(Link, "gist.github", &test)
+        gistlist := 1
+    if RegExMatch(Link, "raw", &test) {
+        l := (StrSplit(Link, "/"))
+        Link := l[1] "/" l[2] "/" l[3] "/" l[4] "/" l[5]
+    }
+    if gistlist := 1 {
+        MsgBox(Link)
+        Download(Link, "AutomationModV1\content.html")
+        if RegExMatch(content := FileRead(Path3), "/" (StrSplit(Link, "/"))[4] "/.+?/.*\.txt", &test) {
+            fullUrl := "https://gist.github.com" . test[]
+            Download(fullUrl, Path)
+        }
+    }
+    else
+        Download(Link, Path)
+}
+
 GetlistofGP() {
     resend := 1
     global names := []
@@ -583,7 +607,7 @@ GetlistofGP() {
         While resend = 1 {
             try {
                 resend := 0
-                Download(Link, Path)
+                DownloadList()
             }
             catch as e {
                 Resend := 1
@@ -939,4 +963,10 @@ F10::
 {
     FindMain()
     WinMove(0, 0, 277, 537, Wintitle)
+}
+
+^t::
+{
+    GetlistofGP()
+    MsgBox("done")
 }
