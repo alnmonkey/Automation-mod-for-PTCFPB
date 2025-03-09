@@ -586,7 +586,7 @@ DownloadList() {
         l := (StrSplit(Link, "/"))
         Link := l[1] "/" l[2] "/" l[3] "/" l[4] "/" l[5]
     }
-    if gistlist := 1 {
+    if gistlist = 1 {
         MsgBox(Link)
         Download(Link, "AutomationModV1\content.html")
         if RegExMatch(content := FileRead(Path3), "/" (StrSplit(Link, "/"))[4] "/.+?/.*\.txt", &test) {
