@@ -677,7 +677,7 @@ Start(&winX, &winY, &WinW, &WinH) {
             sleep 10
         }
     WinGetPos(&winX, &winY, &WinW, &WinH, Wintitle)
-    WinMove(0,0,550,1010,Wintitle)
+    WinMove(,,550,1010,Wintitle)
 }
 
 end(winX, winY, WinW, WinH,unpause:=1) {
