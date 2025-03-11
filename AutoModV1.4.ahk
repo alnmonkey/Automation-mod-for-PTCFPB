@@ -735,6 +735,8 @@ DeleteNoneGP() {
                 GoToProfile(Friend.x,Friend.y)
                 WaitLoad()
                 code := findcode()
+                if StrLen(code) < 16
+                    GP := 0.5
                 for n in codes {
                     codesimilarity := Similarity.match(code, codes[A_Index])
                     If codesimilarity > S
@@ -858,6 +860,10 @@ Delete(it) {
             Spam_detection(278, 757, count7, 0, 5, 5, "0xF03E44", 370, 665, 70, 50, 50, 15)
             sleep 200
     
+            PixelCountWindowRegion(Wintitle, [0xF03E44], &count7, 370, 665, 70, 50, 15)
+            Spam_detection(296, 680, count7, 5, 5000, 5, "0xF03E44",  370, 665, 70, 50, 50, 15)
+            sleep 300
+
             PixelCountWindowRegion(Wintitle, [0xF03E44], &count7, 370, 665, 70, 50, 15)
             Spam_detection(296, 680, count7, 5, 5000, 5, "0xF03E44",  370, 665, 70, 50, 50, 15)
         }
