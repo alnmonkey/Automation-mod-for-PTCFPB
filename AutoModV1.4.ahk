@@ -853,8 +853,6 @@ GoToFR() {
 Delete(it) {
     loop it {
         PixelCountWindowRegion(Wintitle, [0x0FD7E1], &count3, 164, 742, 31, 27, 10)
-        if A_Index > 1
-            count3 := 20
         if count3 > 10 {
             PixelCountWindowRegion(Wintitle, [0xF03E44], &count7, 370, 665, 70, 50, 15)
             Spam_detection(278, 757, count7, 0, 5, 5, "0xF03E44", 370, 665, 70, 50, 50, 15)
