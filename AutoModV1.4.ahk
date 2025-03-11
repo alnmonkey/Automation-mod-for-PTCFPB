@@ -728,7 +728,7 @@ DeleteNoneGP() {
                     break
                 }
                 else if nameSimilarity > 0.8 {
-                    GP := 0.30
+                    GP := 0.60
                 }
             }
             if GP < 1 {
@@ -748,7 +748,7 @@ DeleteNoneGP() {
             }
             if (GP+S) < 1 {
                 GoToProfile(Friend.x,Friend.y)
-                Delete(3)
+                Delete(6)
                 WaitLoad()
                 GoToFL(3)
                 Finished := 0
@@ -853,13 +853,15 @@ GoToFR() {
 Delete(it) {
     loop it {
         PixelCountWindowRegion(Wintitle, [0x0FD7E1], &count3, 164, 742, 31, 27, 10)
+        if A_Index > 1
+            count3 := 20
         if count3 > 10 {
             PixelCountWindowRegion(Wintitle, [0xF03E44], &count7, 370, 665, 70, 50, 15)
-            Spam_detection(278, 757, count7, 0, 5, 5, "0xF03E44", 370, 665, 70, 50, 50, 30)
+            Spam_detection(278, 757, count7, 0, 5, 5, "0xF03E44", 370, 665, 70, 50, 50, 15)
             sleep 200
     
             PixelCountWindowRegion(Wintitle, [0xF03E44], &count7, 370, 665, 70, 50, 15)
-            Spam_detection(296, 680, count7, 5, 5000, 5, "0xF03E44",  370, 665, 70, 50, 50, 30)
+            Spam_detection(296, 680, count7, 5, 5000, 5, "0xF03E44",  370, 665, 70, 50, 50, 15)
         }
     }
 }
@@ -909,6 +911,7 @@ WaitLoad() {
 }
 
 Spam_detection(x,y,count,inf,sup,cr,color,xd,yd,w,h,v,fs:=10000000000000000) {
+    global stopped
     failsafe := 0
     if x
         adbClick(x, y)
@@ -918,6 +921,8 @@ Spam_detection(x,y,count,inf,sup,cr,color,xd,yd,w,h,v,fs:=10000000000000000) {
         sleep 100
         PixelCountWindowRegion(Wintitle, [color], &count, xd, yd, w, h, v)
         failsafe := failsafe + 1
+        if Stopped = 1
+            break
     }
 }
 
