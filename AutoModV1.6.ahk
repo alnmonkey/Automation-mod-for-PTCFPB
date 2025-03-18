@@ -4,11 +4,19 @@ if not (A_IsAdmin)
     Run '*RunAs "' A_AhkPath '" /restart "' A_ScriptFullPath '"'
     ExitApp
 }
+githubUser := "gmisSe"
+repoName := "Automation-mod-for-PTCFPB"
+localVersion := "V1.6"
+scriptFolder := A_ScriptDir
+zipPath := A_Temp . "\update.zip"
+extractPath := A_Temp . "\update"
 #SingleInstance Force
-#Include AutomationModV1\Libs\ImagePut.ahk
-#Include AutomationModV1\Libs\adb.ahk
-#Include AutomationModV1\Libs\OCR.ahk
-#Include AutomationModV1\Libs\FuzzyMatch.ahk
+#Include AutomationModV1.6\Libs\ImagePut.ahk
+#Include AutomationModV1.6\Libs\adb.ahk
+#Include AutomationModV1.6\Libs\OCR.ahk
+#Include AutomationModV1.6\Libs\FuzzyMatch.ahk
+#Include AutomationModV1.6\Libs\AutoUpdate.ahk
+CheckForUpdate()
 Similarity := Fuzzy()
 global Wintitle := "Main"
 global Wintitle2 := 0
@@ -513,7 +521,6 @@ Main(*) {
             if Stopped = 1
                 break
             WaitForFull()
-            FindMain()
             if  Mod(A_Index, B4Clear) {
                 SendToDiscord("Friendlist is full, refreshing")
                 Start(&winX, &winY, &WinW, &WinH)
@@ -569,7 +576,7 @@ FindMain() {
             }
         }
         for id3 in TextMacro {
-            if id = id3 {
+            try if ControlGetClassNN("Button2" ,"ahk_id " id) {
                 global Wintitle2 := "ahk_id " id
                 break
             }
@@ -671,6 +678,7 @@ PixelCountWindowRegion(Wintitle,pixels,&count,x1,y1,w,h,variance:=0) {
 ;-------------------------Even More Functions-------------------------;
 
 Start(&winX, &winY, &WinW, &WinH) {
+    FindMain()
     if Wintitle2
         loop 50 {
             ControlClick("Button2", Wintitle2)
@@ -682,6 +690,7 @@ Start(&winX, &winY, &WinW, &WinH) {
 
 end(winX, winY, WinW, WinH,unpause:=1) {
     WinMove(winX, winY, WinW, WinH, Wintitle)
+    FindMain()
     if (unpause = 1 and Wintitle2) {
         loop 50 {
             ControlClick("Button3", Wintitle2)
@@ -728,15 +737,15 @@ DeleteNoneGP() {
                     break
                 }
                 else if nameSimilarity > 0.8 {
-                    GP := 0.60
+                    GP := 0.3
                 }
             }
             if GP < 1 {
                 GoToProfile(Friend.x,Friend.y)
                 WaitLoad()
                 code := findcode()
-                if StrLen(code) < 16
-                    GP := 0.5
+                if !(StrLen(code) > 13 and StrLen(code) < 18)
+                    GoToFL(3)
                 for n in codes {
                     codesimilarity := Similarity.match(code, codes[A_Index])
                     If codesimilarity > S
@@ -750,7 +759,7 @@ DeleteNoneGP() {
             }
             if (GP+S) < 1 {
                 GoToProfile(Friend.x,Friend.y)
-                Delete(6)
+                Delete(1)
                 WaitLoad()
                 GoToFL(3)
                 Finished := 0
@@ -861,7 +870,11 @@ Delete(it) {
             sleep 200
     
             PixelCountWindowRegion(Wintitle, [0xF03E44], &count7, 370, 665, 70, 50, 15)
-            Spam_detection(296, 680, count7, 5, 5000, 5, "0xF03E44",  370, 665, 70, 50, 50, 15)
+            Spam_detection(296, 680, count7, 5, 5000, 5, "0xF03E44",  370, 665, 70, 50, 50, 50)
+            sleep 300
+
+            PixelCountWindowRegion(Wintitle, [0xF03E44], &count7, 370, 665, 70, 50, 15)
+            Spam_detection(296, 680, count7, 5, 5000, 5, "0xF03E44",  370, 665, 70, 50, 50, 50)
             sleep 300
 
             PixelCountWindowRegion(Wintitle, [0xF03E44], &count7, 370, 665, 70, 50, 15)
@@ -972,10 +985,4 @@ F10::
 {
     FindMain()
     WinMove(0, 0, 277, 537, Wintitle)
-}
-
-^t::
-{
-    GetlistofGP()
-    MsgBox("done")
 }
